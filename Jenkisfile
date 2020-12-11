@@ -1,3 +1,4 @@
+tool name: '', type: 'maven'
 pipeline {
     agent {
         docker {
