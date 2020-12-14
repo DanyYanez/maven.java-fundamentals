@@ -12,7 +12,7 @@ pipeline {
       steps {
         script {
          echo 'Compile Package'
-         def mvnHome = tool name: '', type: 'maven'
+         def mvnHome = tool name: 'maven', type: 'maven'
          sh "${mvnHome}/bin/mvn/package"
           }
       }
