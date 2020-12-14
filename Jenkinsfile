@@ -12,8 +12,8 @@ pipeline {
       steps {
         script {
          docker image build -t maven_project
-         docker container run --name maven_container -p 9090:9090 -d maven_project
-         docker exec -it maven_container bash
+         //docker container run --name maven_container -p 9090:9090 -d maven_project
+         //docker exec -it maven_container bash
          echo 'Compile Package'
          def mvnHome = tool name: 'maven3.6.3', type: 'maven'
          sh "${mvnHome}/bin/mvn package -Dmaven.test.failure.ignore=true"
