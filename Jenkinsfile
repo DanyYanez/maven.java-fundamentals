@@ -11,7 +11,7 @@ pipeline {
   stage('Compile Package') {
       steps {
         script {
-         docker image build -t maven_project .
+         docker image build -t maven_project
          docker container run --name maven_container -p 9090:9090 -d maven_project
          docker exec -it maven_container bash
          echo 'Compile Package'
