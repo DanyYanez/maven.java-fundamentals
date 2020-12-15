@@ -1,29 +1,25 @@
-node {
-  def app
-  
-  stage ('Clone Repository') {
-    checkout scm
+pipeline {
+  agent {
+    docker {
+      image "maven:3.6.0-jdk-13"
+      label "docker"
+    }
   }
-  
-  stage ('Build Image') {
-    app = docker.build
+      
+  stages {
+    stage('Compile Package') {
+      steps {
+        script {
+         echo 'Compile Package'
+         def mvnHome = tool name: 'maven3.6.3', type: 'maven'
+         sh "${mvnHome}/bin/mvn package -Dmaven.test.failure.ignore=true"
+          }
+      }
+    }
   }
-  
-}
-
-
-
-//pipeline {
-  //agent any 
-  //stages {
-    //stage('Compile Package') {
-      //steps {
-        //script {
-         //echo 'Compile Package'
-         //def mvnHome = tool name: 'maven3.6.3', type: 'maven'
-         //sh "${mvnHome}/bin/mvn package -Dmaven.test.failure.ignore=true"
-          //}
-      //}
-    //}
-  //}
-//} 
+  post {
+    always {
+      cleanWs()
+    }
+  }
+} 
