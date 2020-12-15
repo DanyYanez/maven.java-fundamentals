@@ -14,8 +14,8 @@ pipeline {
          echo 'Compile Package'
          def mvnHome = tool name: 'maven3.6.3', type: 'maven'
           sh mvn package -Dmaven.test.failure.ignore=true"
-         //sh "${mvnHome}/mvn package -Dmaven.test.failure.ignore=true"
-          }
+          //sh "${mvnHome}/mvn package -Dmaven.test.failure.ignore=true"
+         }
       }
     }
   }
