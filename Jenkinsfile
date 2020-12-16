@@ -3,7 +3,7 @@ pipeline {
     dockerfile {
       //image "maven:3.6.3-jdk-13"
       //label "docker"
-      //args '-v /root/.m2:/root/.m2'
+      args '-v /root/.m2:/root/.m2'
     }
   }
       
