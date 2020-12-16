@@ -1,2 +1,2 @@
 FROM maven:3.6.3-jdk-13
-EXPOSE 8000
+
