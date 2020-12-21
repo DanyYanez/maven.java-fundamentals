@@ -12,12 +12,12 @@ pipeline {
         steps {
           script {
             echo 'Compile Package'
-            dir('$PWD/maven.java-fundamentals') {
-              sh "mvn package -Dmaven.test.failure.ignore=true"
-            }
-            //def mvnHome = tool name: 'maven3.6.3', type: 'maven'
+            //dir('$PWD/maven.java-fundamentals') {
+              //sh "mvn package -Dmaven.test.failure.ignore=true"
+            //}
+            def mvnHome = tool name: 'maven3.6.3', type: 'maven'
             //sh ${mvnHome}/bin/mvn package -Dmaven.test.failure.ignore=true
-            //sh "${mvnHome}/bin mvn package -Dmaven.test.failure.ignore=true"
+            sh "${mvnHome}/bin mvn package -Dmaven.test.failure.ignore=true"
           }
         }
       }
