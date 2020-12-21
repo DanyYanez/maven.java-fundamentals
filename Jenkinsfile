@@ -1,25 +1,31 @@
 pipeline {
     agent {
-      docker {
-        image "maven:3-alpine"
-        //label "docker"
-        args '-v /root/.m2:/root/.m2'
-      }
-    }
-      
-    stages {
-      stage('Compile Package') {
-        steps {
-          script {
-            echo 'Compile Package'
-            //dir('$PWD/maven.java-fundamentals') {
-              //sh "mvn package -Dmaven.test.failure.ignore=true"
-            //}
-            def mvnHome = tool name: 'maven3.6.3', type: 'maven'
-            //sh ${mvnHome}/bin/mvn package -Dmaven.test.failure.ignore=true
-            sh "${mvnHome}/bin mvn package -Dmaven.test.failure.ignore=true"
-          }
+        docker {
+            image 'jamesdbloom/docker-java8-maven:latest' 
+            args '-v /root/.m2:/root/.m2' 
         }
-      }
     }
-} 
+    stages {
+        stage('Set Up') {
+            steps {
+                script {
+                    sh 'rm -rf maven.java-fundamentals'
+                }
+            }
+        }
+        stage('SCM Checkout') {
+            steps {
+                sh 'git clone https://github.com/DanyYanez/maven.java-fundamentals $PWD/maven.java-fundamentals'
+            }
+        }
+        stage('Compile-Package-Test') {
+            steps {
+                script {
+                    dir('$PWD/maven.java-fundamentals') {
+                        sh "mvn package -Dmaven.test.failure.ignore=true"
+                    }
+                }
+            }
+        }
+    }
+}
